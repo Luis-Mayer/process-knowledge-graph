@@ -29,11 +29,13 @@ def build_graph(data: dict) -> Graph:
     graph.add((EX.Process, RDF.type, RDFS.Class))
     graph.add((EX.Task, RDF.type, RDFS.Class))
     graph.add((EX.Role, RDF.type, RDFS.Class))
+    graph.add((EX.System, RDF.type, RDFS.Class))
 
     # Define basic properties
     graph.add((EX.hasTask, RDF.type, RDF.Property))
     graph.add((EX.performedBy, RDF.type, RDF.Property))
     graph.add((EX.precedes, RDF.type, RDF.Property))
+    graph.add((EX.usesSystem, RDF.type, RDF.Property))
 
     # Create process node
     process_uri = EX[data["process_id"]]
@@ -45,6 +47,12 @@ def build_graph(data: dict) -> Graph:
         role_uri = EX[role["id"]]
         graph.add((role_uri, RDF.type, EX.Role))
         graph.add((role_uri, RDFS.label, Literal(role["name"])))
+
+    # Create system nodes
+    for system in data.get("systems", []):
+        system_uri = EX[system["id"]]
+        graph.add((system_uri, RDF.type, EX.System))
+        graph.add((system_uri, RDFS.label, Literal(system["name"])))
 
     # Create task nodes and relations
     for task in data.get("tasks", []):
@@ -64,6 +72,11 @@ def build_graph(data: dict) -> Graph:
         next_task = task.get("next_task")
         if next_task:
             graph.add((task_uri, EX.precedes, EX[next_task]))
+
+        # Task -> System
+        uses_system = task.get("uses_system")
+        if uses_system:
+            graph.add((task_uri, EX.usesSystem, EX[uses_system]))
 
     return graph
 

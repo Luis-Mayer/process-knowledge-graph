@@ -6,6 +6,8 @@ ex:Process a rdfs:Class .
 
 ex:Role a rdfs:Class .
 
+ex:System a rdfs:Class .
+
 ex:Task a rdfs:Class .
 
 ex:hasTask a rdf:Property .
@@ -19,6 +21,11 @@ ex:purchase_request a ex:Process ;
     ex:hasTask ex:task_1,
         ex:task_2,
         ex:task_3 .
+
+ex:usesSystem a rdf:Property .
+
+ex:erp a ex:System ;
+    rdfs:label "ERP System" .
 
 ex:finance a ex:Role ;
     rdfs:label "Finance" .
@@ -41,5 +48,6 @@ ex:task_2 a ex:Task ;
 
 ex:task_3 a ex:Task ;
     rdfs:label "Create purchase order" ;
-    ex:performedBy ex:finance .
+    ex:performedBy ex:finance ;
+    ex:usesSystem ex:erp .
 
