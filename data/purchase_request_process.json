@@ -1,0 +1,35 @@
+{
+  "process_id": "purchase_request",
+  "process_name": "Purchase Request Approval",
+  "roles": [
+    {"id": "purchaser", "name": "Purchaser"},
+    {"id": "manager", "name": "Manager"},
+    {"id": "finance", "name": "Finance"}
+  ],
+  "systems": [
+    {"id": "erp", "name": "ERP System"}
+  ],
+  "tasks": [
+    {
+      "id": "task_1",
+      "name": "Submit purchase request",
+      "performed_by": "purchaser",
+      "uses_system": null,
+      "next_task": "task_2"
+    },
+    {
+      "id": "task_2",
+      "name": "Approve request",
+      "performed_by": "manager",
+      "uses_system": null,
+      "next_task": "task_3"
+    },
+    {
+      "id": "task_3",
+      "name": "Create purchase order",
+      "performed_by": "finance",
+      "uses_system": "erp",
+      "next_task": null
+    }
+  ]
+}

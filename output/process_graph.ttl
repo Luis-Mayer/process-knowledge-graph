@@ -1,0 +1,45 @@
+@prefix ex: <http://example.org/process-kg/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Process a rdfs:Class .
+
+ex:Role a rdfs:Class .
+
+ex:Task a rdfs:Class .
+
+ex:hasTask a rdf:Property .
+
+ex:performedBy a rdf:Property .
+
+ex:precedes a rdf:Property .
+
+ex:purchase_request a ex:Process ;
+    rdfs:label "Purchase Request Approval" ;
+    ex:hasTask ex:task_1,
+        ex:task_2,
+        ex:task_3 .
+
+ex:finance a ex:Role ;
+    rdfs:label "Finance" .
+
+ex:manager a ex:Role ;
+    rdfs:label "Manager" .
+
+ex:purchaser a ex:Role ;
+    rdfs:label "Purchaser" .
+
+ex:task_1 a ex:Task ;
+    rdfs:label "Submit purchase request" ;
+    ex:performedBy ex:purchaser ;
+    ex:precedes ex:task_2 .
+
+ex:task_2 a ex:Task ;
+    rdfs:label "Approve request" ;
+    ex:performedBy ex:manager ;
+    ex:precedes ex:task_3 .
+
+ex:task_3 a ex:Task ;
+    rdfs:label "Create purchase order" ;
+    ex:performedBy ex:finance .
+

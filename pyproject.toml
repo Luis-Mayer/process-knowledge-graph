@@ -1,7 +1,9 @@
 [project]
 name = "process-knowledge-graph"
 version = "0.1.0"
-description = "Add your description here"
+description = ""
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = []
+requires-python = ">=3.11"
+dependencies = [
+    "rdflib>=7.6.0",
+]
