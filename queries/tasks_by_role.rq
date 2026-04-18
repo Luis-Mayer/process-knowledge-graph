@@ -1,0 +1,12 @@
+PREFIX ex: <http://example.org/process-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?taskLabel ?roleLabel
+WHERE {
+  ?task a ex:Task ;
+        rdfs:label ?taskLabel ;
+        ex:performedBy ?role .
+
+  ?role rdfs:label ?roleLabel .
+}
+ORDER BY ?roleLabel ?taskLabel
