@@ -2,6 +2,8 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
+ex:Decision a rdfs:Class .
+
 ex:Process a rdfs:Class .
 
 ex:Role a rdfs:Class .
@@ -9,6 +11,12 @@ ex:Role a rdfs:Class .
 ex:System a rdfs:Class .
 
 ex:Task a rdfs:Class .
+
+ex:condition a rdf:Property .
+
+ex:falseNext a rdf:Property .
+
+ex:hasDecision a rdf:Property .
 
 ex:hasTask a rdf:Property .
 
@@ -18,11 +26,20 @@ ex:precedes a rdf:Property .
 
 ex:purchase_request a ex:Process ;
     rdfs:label "Purchase Request Approval" ;
+    ex:hasDecision ex:decision_1 ;
     ex:hasTask ex:task_1,
         ex:task_2,
         ex:task_3 .
 
+ex:trueNext a rdf:Property .
+
 ex:usesSystem a rdf:Property .
+
+ex:decision_1 a ex:Decision ;
+    rdfs:label "Check request value" ;
+    ex:condition "Request value exceeds approval threshold" ;
+    ex:falseNext ex:task_4 ;
+    ex:trueNext ex:task_3 .
 
 ex:erp a ex:System ;
     rdfs:label "ERP System" .

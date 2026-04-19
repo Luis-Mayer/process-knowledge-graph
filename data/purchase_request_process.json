@@ -31,5 +31,14 @@
       "uses_system": "erp",
       "next_task": null
     }
+  ],
+  "decisions": [
+    {
+      "id": "decision_1",
+      "name": "Check request value",
+      "condition": "Request value exceeds approval threshold",
+      "true_next": "task_3",
+      "false_next": "task_4"
+    }
   ]
 }

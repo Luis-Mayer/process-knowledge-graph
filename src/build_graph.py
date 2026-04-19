@@ -30,12 +30,17 @@ def build_graph(data: dict) -> Graph:
     graph.add((EX.Task, RDF.type, RDFS.Class))
     graph.add((EX.Role, RDF.type, RDFS.Class))
     graph.add((EX.System, RDF.type, RDFS.Class))
+    graph.add((EX.Decision, RDF.type, RDFS.Class))
 
     # Define basic properties
     graph.add((EX.hasTask, RDF.type, RDF.Property))
+    graph.add((EX.hasDecision, RDF.type, RDF.Property))
     graph.add((EX.performedBy, RDF.type, RDF.Property))
     graph.add((EX.precedes, RDF.type, RDF.Property))
     graph.add((EX.usesSystem, RDF.type, RDF.Property))
+    graph.add((EX.condition, RDF.type, RDF.Property))
+    graph.add((EX.trueNext, RDF.type, RDF.Property))
+    graph.add((EX.falseNext, RDF.type, RDF.Property))
 
     # Create process node
     process_uri = EX[data["process_id"]]
@@ -68,7 +73,7 @@ def build_graph(data: dict) -> Graph:
         if performed_by:
             graph.add((task_uri, EX.performedBy, EX[performed_by]))
 
-        # Task -> next Task
+        # Task -> next Task or Decision
         next_task = task.get("next_task")
         if next_task:
             graph.add((task_uri, EX.precedes, EX[next_task]))
@@ -77,6 +82,25 @@ def build_graph(data: dict) -> Graph:
         uses_system = task.get("uses_system")
         if uses_system:
             graph.add((task_uri, EX.usesSystem, EX[uses_system]))
+
+    # Create decision nodes and relations
+    for decision in data.get("decisions", []):
+        decision_uri = EX[decision["id"]]
+        graph.add((decision_uri, RDF.type, EX.Decision))
+        graph.add((decision_uri, RDFS.label, Literal(decision["name"])))
+        graph.add((process_uri, EX.hasDecision, decision_uri))
+
+        condition = decision.get("condition")
+        if condition:
+            graph.add((decision_uri, EX.condition, Literal(condition)))
+
+        true_next = decision.get("true_next")
+        if true_next:
+            graph.add((decision_uri, EX.trueNext, EX[true_next]))
+
+        false_next = decision.get("false_next")
+        if false_next:
+            graph.add((decision_uri, EX.falseNext, EX[false_next]))
 
     return graph
 
