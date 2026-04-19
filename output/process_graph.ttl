@@ -20,6 +20,9 @@ ex:hasDecision a rdf:Property .
 
 ex:hasTask a rdf:Property .
 
+ex:manager a ex:Role ;
+    rdfs:label "Manager" .
+
 ex:performedBy a rdf:Property .
 
 ex:precedes a rdf:Property .
@@ -28,8 +31,8 @@ ex:purchase_request a ex:Process ;
     rdfs:label "Purchase Request Approval" ;
     ex:hasDecision ex:decision_1 ;
     ex:hasTask ex:task_1,
-        ex:task_2,
-        ex:task_3 .
+        ex:task_3,
+        ex:task_4 .
 
 ex:trueNext a rdf:Property .
 
@@ -44,12 +47,6 @@ ex:decision_1 a ex:Decision ;
 ex:erp a ex:System ;
     rdfs:label "ERP System" .
 
-ex:finance a ex:Role ;
-    rdfs:label "Finance" .
-
-ex:manager a ex:Role ;
-    rdfs:label "Manager" .
-
 ex:purchaser a ex:Role ;
     rdfs:label "Purchaser" .
 
@@ -58,12 +55,15 @@ ex:task_1 a ex:Task ;
     ex:performedBy ex:purchaser ;
     ex:precedes ex:task_2 .
 
-ex:task_2 a ex:Task ;
-    rdfs:label "Approve request" ;
-    ex:performedBy ex:manager ;
-    ex:precedes ex:task_3 .
+ex:finance a ex:Role ;
+    rdfs:label "Finance" .
 
 ex:task_3 a ex:Task ;
+    rdfs:label "Review high-value request" ;
+    ex:performedBy ex:finance ;
+    ex:precedes ex:task_4 .
+
+ex:task_4 a ex:Task ;
     rdfs:label "Create purchase order" ;
     ex:performedBy ex:finance ;
     ex:usesSystem ex:erp .
