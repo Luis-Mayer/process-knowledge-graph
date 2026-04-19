@@ -10,7 +10,7 @@ The current prototype:
 
 - reads a JSON-based process definition
 - creates an RDF graph using RDFLib
-- models processes, tasks, roles, and systems
+- models processes, tasks, roles, systems, and decisions
 - stores the graph in Turtle format
 - runs SPARQL queries against the generated graph
 
@@ -101,6 +101,15 @@ The input process is defined as JSON:
       "uses_system": null,
       "next_task": "task_2"
     }
+  ],
+  "decisions": [
+    {
+      "id": "decision_1",
+      "name": "Check request value",
+      "condition": "Request value exceeds approval threshold",
+      "true_next": "task_3",
+      "false_next": "task_4"
+    }
   ]
 }
 ```
@@ -115,13 +124,18 @@ The current graph model uses a lightweight vocabulary.
 - `ex:Task`
 - `ex:Role`
 - `ex:System`
+- `ex:Decision`
 
 ### Properties
 
 - `ex:hasTask`
+- `ex:hasDecision`
 - `ex:performedBy`
 - `ex:precedes`
 - `ex:usesSystem`
+- `ex:condition`
+- `ex:trueNext`
+- `ex:falseNext`
 
 ### Example
 
@@ -148,9 +162,11 @@ The repository currently includes two SPARQL queries:
 
 This project is a small prototype for connecting business process modeling with semantic data modeling. It demonstrates how process knowledge can be represented as a machine-readable graph and queried in a structured way.
 
+The prototype also includes simple decision logic to represent branching process paths, which makes it closer to real-world process modeling.
+
 ## Possible Extensions
 
-- Adding decisions and branching logic to process definitions
+- Extending decision logic with multiple branches and gateway types
 - Creating a formal OWL ontology in the `ontology/` directory
 - Mapping BPMN XML elements to RDF triples
 - Adding SHACL validation for process consistency
