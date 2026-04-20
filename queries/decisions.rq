@@ -1,0 +1,15 @@
+PREFIX ex: <http://example.org/process-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?decisionLabel ?condition ?trueNextLabel ?falseNextLabel
+WHERE {
+  ?decision rdf:type ex:Decision ;
+            rdfs:label ?decisionLabel ;
+            ex:condition ?condition ;
+            ex:trueNext ?trueNext ;
+            ex:falseNext ?falseNext .
+
+  ?trueNext rdfs:label ?trueNextLabel .
+  ?falseNext rdfs:label ?falseNextLabel .
+}
+ORDER BY ?decisionLabel
