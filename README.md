@@ -27,6 +27,7 @@ The sample process is a simplified purchase request approval workflow.
 ├── output/
 │   └── process_graph.ttl
 ├── queries/
+│   ├── decisions.rq
 │   ├── tasks_by_role.rq
 │   └── tasks_using_systems.rq
 ├── src/
@@ -153,8 +154,9 @@ ex:task_1 a ex:Task ;
 
 ## Example Queries
 
-The repository currently includes two SPARQL queries:
+The repository currently includes three SPARQL queries:
 
+- `decisions.rq`: shows decision logic with conditions and branching paths
 - `tasks_by_role.rq`: shows which role performs which task
 - `tasks_using_systems.rq`: shows which tasks use which systems
 
