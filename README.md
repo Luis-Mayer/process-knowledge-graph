@@ -23,7 +23,7 @@ The sample process is a simplified purchase request approval workflow.
 ├── data/
 │   └── purchase_request_process.json
 ├── ontology/
-│   └── (placeholder for future ontology files)
+│   └── shapes.ttl
 ├── output/
 │   └── process_graph.ttl
 ├── queries/
@@ -159,6 +159,16 @@ The repository currently includes three SPARQL queries:
 - `decisions.rq`: shows decision logic with conditions and branching paths
 - `tasks_by_role.rq`: shows which role performs which task
 - `tasks_using_systems.rq`: shows which tasks use which systems
+
+## SHACL Validation (Data Quality Constraints)
+
+The project includes an initial SHACL-based validation layer to ensure data quality in the knowledge graph.
+
+Currently implemented constraints:
+
+- Each Task must have exactly one `ex:performedBy` relationship
+
+Future extensions will include validation of decision logic.
 
 ## Motivation
 

@@ -1,0 +1,14 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.org/process-kg/> .
+
+# --- Task Constraints ---
+ex:TaskShape rdf:type sh:NodeShape ;
+    sh:targetClass ex:Task ;
+    sh:property [
+        sh:path ex:performedBy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+# add decision constraints
+# condition + trueNext + falseNext
