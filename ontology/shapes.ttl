@@ -10,5 +10,18 @@ ex:TaskShape rdf:type sh:NodeShape ;
         sh:maxCount 1 ;
     ] .
 
-# add decision constraints
-# condition + trueNext + falseNext
+# --- Decision Constraints ---
+ex:DecisionShape rdf:type sh:NodeShape ;
+    sh:targetClass ex:Decision ;
+    sh:property [
+        sh:path ex:condition ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ex:trueNext ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ex:falseNext ;
+        sh:minCount 1 ;
+    ] .
