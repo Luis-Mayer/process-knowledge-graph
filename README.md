@@ -34,7 +34,8 @@ The sample process is a simplified purchase request approval workflow.
 │   └── tasks_using_systems.rq
 ├── src/
 │   ├── build_graph.py
-│   └── run_query.py
+│   ├── run_query.py
+│   └── validate_graph.py
 ├── pyproject.toml
 ├── uv.lock
 └── README.md
