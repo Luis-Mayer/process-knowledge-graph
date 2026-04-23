@@ -13,6 +13,7 @@ The current prototype:
 - models processes, tasks, roles, systems, and decisions
 - stores the graph in Turtle format
 - runs SPARQL queries against the generated graph
+- applies SHACL-based validation rules to ensure data quality and semantic consistency
 
 The sample process is a simplified purchase request approval workflow.
 
