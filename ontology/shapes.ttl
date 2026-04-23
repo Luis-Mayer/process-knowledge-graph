@@ -1,5 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ex: <http://example.org/process-kg/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 # --- Task Constraints ---
 ex:TaskShape rdf:type sh:NodeShape ;
