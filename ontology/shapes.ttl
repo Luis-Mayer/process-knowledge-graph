@@ -5,24 +5,46 @@
 # --- Task Constraints ---
 ex:TaskShape rdf:type sh:NodeShape ;
     sh:targetClass ex:Task ;
+
+    # must have exactly one responsible role
     sh:property [
         sh:path ex:performedBy ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
+    ] ;
+
+    # must belong to a process
+    sh:property [
+        sh:path [ sh:inversePath ex:hasTask ] ;
+        sh:minCount 1 ;
     ] .
 
 # --- Decision Constraints ---
 ex:DecisionShape rdf:type sh:NodeShape ;
     sh:targetClass ex:Decision ;
+
+    # must have a condition
     sh:property [
         sh:path ex:condition ;
         sh:minCount 1 ;
     ] ;
+
+    # must define true branch (must point to a Task)
     sh:property [
         sh:path ex:trueNext ;
         sh:minCount 1 ;
+        sh:class ex:Task ;
     ] ;
+
+    # must define false branch (must point to a Task)
     sh:property [
         sh:path ex:falseNext ;
+        sh:minCount 1 ;
+        sh:class ex:Task ;
+    ] ;
+
+    # must belong to a process
+    sh:property [
+        sh:path [ sh:inversePath ex:hasDecision ] ;
         sh:minCount 1 ;
     ] .
