@@ -119,6 +119,13 @@ The input process is defined as JSON:
 }
 ```
 
+### Mapping to RDF
+
+- `next_task` is mapped to `ex:precedes`
+- `performed_by` is mapped to `ex:performedBy`
+- `uses_system` is mapped to `ex:usesSystem`
+- decision branching is modeled via `ex:trueNext` and `ex:falseNext`
+
 ## Graph Model
 
 The current graph model uses a lightweight vocabulary.
@@ -171,12 +178,21 @@ The project includes initial SHACL shapes to define data quality constraints for
 Currently implemented constraints:
 
 - Each Task must have exactly one `ex:performedBy` relationship
-- Each Decision must define:
-    - a condition (ex:condition)
-    - a true branch (ex:trueNext)
-    - a false branch (ex:falseNext)
+- Each Task must belong to a process
+- Each Decision must:
+    - define a condition (`ex:condition`)
+    - define a true branch (`ex:trueNext`)
+    - define a false branch (`ex:falseNext`)
+    - belong to a process
+- Decision branches must point to valid tasks
 
-Future extensions may include additional constraints for more complex process structures and validation rules.
+## Validate the Graph
+
+Run SHACL validation to check data consistency:
+
+```bash
+uv run python src/validate_graph.py
+```
 
 ## Motivation
 
