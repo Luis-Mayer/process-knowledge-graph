@@ -1,6 +1,6 @@
 # Process Knowledge Graph
 
-A small Python project for representing business process information as an RDF knowledge graph and querying it with SPARQL.
+This project is a prototype for modeling business processes as RDF-based knowledge graphs with SPARQL query and SHACL validation support.
 
 The project is inspired by the idea that business process knowledge is often stored in unstructured or semi-structured documentation. By representing process steps, roles, systems, and dependencies as graph relationships, the process becomes machine-readable and easier to query.
 
@@ -36,7 +36,8 @@ The sample process is a simplified purchase request approval workflow.
 ├── src/
 │   ├── build_graph.py
 │   ├── run_query.py
-│   └── validate_graph.py
+│   ├── validate_graph.py
+│   └── visualize_graph.py
 ├── pyproject.toml
 ├── uv.lock
 └── README.md
@@ -171,6 +172,7 @@ The repository currently includes three SPARQL queries:
 - `tasks_by_role.rq`: shows which role performs which task
 - `tasks_using_systems.rq`: shows which tasks use which systems
 
+
 ## SHACL Validation (Data Quality Constraints)
 
 The project includes initial SHACL shapes to define data quality constraints for the knowledge graph.
@@ -186,6 +188,7 @@ Currently implemented constraints:
     - belong to a process
 - Decision branches must point to valid tasks
 
+
 ## Validate the Graph
 
 Run SHACL validation to check data consistency:
@@ -194,16 +197,25 @@ Run SHACL validation to check data consistency:
 uv run python src/validate_graph.py
 ```
 
+## Graph Visualization (Exploratory Layer)
+
+The project includes a simple visualization layer that converts the RDF graph into a NetworkX directed graph and renders it using Matplotlib.
+
+This is mainly used for debugging and exploratory analysis of the process structure.
+
+
 ## Motivation
 
 This project is a small prototype for connecting business process modeling with semantic data modeling. It demonstrates how process knowledge can be represented as a machine-readable graph and queried in a structured way.
 
 The prototype also includes simple decision logic to represent branching process paths, which makes it closer to real-world process modeling.
 
+
 ## Possible Extensions
 
 - Extending decision logic with multiple branches and gateway types
 - Creating a formal OWL ontology in the `ontology/` directory
 - Mapping BPMN XML elements to RDF triples
-- Adding SHACL validation for process consistency
-- Exporting the graph to graph databases or visualization tools
+- Integration with graph databases (e.g., Neo4j or RDF triplestores)
+- REST API layer for querying the knowledge graph
+- UI for process visualization and validation results
