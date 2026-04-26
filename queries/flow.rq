@@ -1,0 +1,64 @@
+PREFIX ex: <http://example.org/process-kg/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+#######
+# 1. START NODES (no incoming edges)
+#######
+# Finds tasks that are not preceded by any other task
+
+SELECT ?task ?label
+WHERE {
+    ?task a ex:Task ;
+          rdfs:label ?label .
+
+    FILTER NOT EXISTS {
+        ?any ex:precedes ?task .
+    }
+}
+
+########
+# 2. END NODES (no outgoing edges)
+########
+# Tasks that do not lead anywhere
+
+SELECT ?task ?label
+WHERE {
+    ?task a ex:Task ;
+          rdfs:label ?label .
+
+    FILTER NOT EXISTS {
+        ?task ex:precedes ?any .
+    }
+}
+
+#######
+# 3. ISOLATED TASKS (logic gaps)
+#######
+# Tasks that are neither properly connected forward nor backward
+
+SELECT ?task ?label
+WHERE {
+    ?task a ex:Task ;
+          rdfs:label ?label .
+
+    FILTER NOT EXISTS {
+        ?any ex:precedes ?task .
+    }
+
+    FILTER NOT EXISTS {
+        ?task ex:precedes ?any2 .
+    }
+}
+
+########
+# 4. DECISION BRANCH COVERAGE
+########
+# Check if decisions are properly connected to tasks
+
+SELECT ?decision ?label ?trueNext ?falseNext
+WHERE {
+    ?decision a ex:Decision ;
+              rdfs:label ?label ;
+              ex:trueNext ?trueNext ;
+              ex:falseNext ?falseNext .
+}
