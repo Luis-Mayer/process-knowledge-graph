@@ -31,6 +31,7 @@ The sample process is a simplified purchase request approval workflow.
 │   └── process_graph.ttl
 ├── queries/
 │   ├── decisions.rq
+│   ├── flow.rq
 │   ├── tasks_by_role.rq
 │   └── tasks_using_systems.rq
 ├── src/

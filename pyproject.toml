@@ -8,5 +8,7 @@ dependencies = [
     "matplotlib>=3.10.9",
     "networkx>=3.6.1",
     "pyshacl>=0.31.0",
+    "pyvis>=0.3.2",
     "rdflib>=7.6.0",
+    "streamlit>=1.57.0",
 ]
