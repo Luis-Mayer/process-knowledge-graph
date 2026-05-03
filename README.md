@@ -22,6 +22,7 @@ The sample process is a simplified purchase request approval workflow.
 ```
 .
 ├── data/
+│   ├── example_process.json
 │   └── purchase_request_process.json
 ├── docs/
 │   └── related_work.md
@@ -35,6 +36,7 @@ The sample process is a simplified purchase request approval workflow.
 │   ├── tasks_by_role.rq
 │   └── tasks_using_systems.rq
 ├── src/
+│   ├── app.py
 │   ├── build_graph.py
 │   ├── run_query.py
 │   ├── validate_graph.py

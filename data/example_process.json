@@ -1,0 +1,68 @@
+{
+  "process_id": "order_fulfillment",
+  "process_name": "Order Fulfillment Process",
+  "roles": [
+    { "id": "role_customer_service", "name": "Customer Service" },
+    { "id": "role_warehouse_staff", "name": "Warehouse Staff" },
+    { "id": "role_logistics", "name": "Logistics" },
+    { "id": "role_accountant", "name": "Accountant" }
+  ],
+  "systems": [
+    { "id": "sys_order_system", "name": "Order Management System" },
+    { "id": "sys_warehouse", "name": "Warehouse System" },
+    { "id": "sys_notification", "name": "Notification Service" }
+  ],
+  "tasks": [
+    {
+      "id": "task_receive_order",
+      "name": "Receive Order",
+      "performed_by": "role_customer_service",
+      "uses_system": "sys_order_system",
+      "next_task": "decision_order_valid"
+    },
+    {
+      "id": "task_check_inventory",
+      "name": "Check Inventory",
+      "performed_by": "role_warehouse_staff",
+      "uses_system": "sys_warehouse",
+      "next_task": "task_pick_and_pack"
+    },
+    {
+      "id": "task_pick_and_pack",
+      "name": "Pick and Pack",
+      "performed_by": "role_warehouse_staff",
+      "uses_system": "sys_warehouse",
+      "next_task": "task_ship_order"
+    },
+    {
+      "id": "task_ship_order",
+      "name": "Ship Order",
+      "performed_by": "role_logistics",
+      "uses_system": null,
+      "next_task": "task_notify_customer"
+    },
+    {
+      "id": "task_notify_customer",
+      "name": "Notify Customer",
+      "performed_by": "role_customer_service",
+      "uses_system": "sys_notification",
+      "next_task": null
+    },
+    {
+      "id": "task_send_rejection",
+      "name": "Send Rejection Notice",
+      "performed_by": "role_customer_service",
+      "uses_system": "sys_notification",
+      "next_task": null
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision_order_valid",
+      "name": "Is Order Valid?",
+      "condition": "Order passes validation checks",
+      "true_next": "task_check_inventory",
+      "false_next": "task_send_rejection"
+    }
+  ]
+}
